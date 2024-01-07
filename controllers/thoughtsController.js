@@ -24,8 +24,7 @@ async getSingleThought(req, res) {
         res.status(500).json(err);
     }
 },
-// Creates a new thought. Accepts a request body with the entire Thought object.
-// Because thoughts are associated with Users, we then update the User who created the thought and add the ID of the thought to the thoughts array
+// CREATE Thought, and update the User who created the thought and add the ID of the thought to the thoughts array
 async createThought(req, res) {
     try {
         const thought = await Thought.create(req.body);
@@ -48,7 +47,7 @@ async createThought(req, res) {
         res.status(500).json(err);
     }
 },
-// Updates the thought using the findOneAndUpdate method. Uses the ID, and the $set operator in mongodb to inject the request body. Enforces validation.
+// UPDATE Thought, uses the ID, and the $set operator in mongodb to inject the request body. Enforces validation.
 async updateThought(req, res) {
     try {
         const thought = await Thought.findOneAndUpdate(
@@ -67,8 +66,7 @@ async updateThought(req, res) {
         res.status(500).json(err);
     }
 },
-// Deletes a thought from the database. Looks for a thought by ID.
-// Then if the thought exists, we look for any users associated with the thought based on the thought ID and update the thoughts array for the User.
+// DELETE Thought, look for any users associated with the thought based on the thought ID and update the thoughts array for the User.
 async deleteThought(req, res) {
     try {
         const thought = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
@@ -113,7 +111,7 @@ async addReaction(req, res) {
         res.status(500).json(err);
     }
 },
-// Remove thought reaction. This method finds the thought based on ID. It then updates the reactions array associated with the thought in question by removing it's reactionId from the reactions array.
+// DELETE thought reaction. This method finds the thought based on ID. It then updates the reactions array associated with the thought in question by removing it's reactionId from the reactions array.
 async removeReaction(req, res) {
     try {
         const thought = await Thought.findOneAndUpdate(

@@ -13,10 +13,9 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            //TODO get method to format timestamp on query 
+            // get method to format timestamp on query 
             get: (timestamp) => new Date(timestamp).toLocaleDateString()
         },
-        //user that created thought, not sure if needs ref
         username: {
             type: String,
             required: true
