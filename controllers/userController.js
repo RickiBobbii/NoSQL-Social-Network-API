@@ -15,9 +15,6 @@ module.exports = {
         try {
             const user = await User.findOne({ _id: req.params.userId })
                 .select('-__v')
-                //TEST populate thoughts and friends
-                // .populate('thoughts')
-                // .populate('friends');
 
             if (!user) {
                 return res.status(404).json({ message: 'No user with that ID' });
@@ -74,7 +71,6 @@ module.exports = {
         try {
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },
-                // may need to do req.body 
                 { $addToSet: { friends: req.params.friendId } },
                 { new: true, runValidators: true }
             );
